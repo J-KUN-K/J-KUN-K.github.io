@@ -22,6 +22,8 @@ permalink: /:year/:month/:day/:title
 repository: J-KUN-K/K-JUN-K.github.io
 paginate: 5
 
+
+
 # MatJek specific configurations
 github_profile: ""
 user: "KIM J K"

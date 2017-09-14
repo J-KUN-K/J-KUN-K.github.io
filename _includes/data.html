@@ -2,7 +2,7 @@
   <div class="divider"></div>
   <div class="cat-index">
     <ul class="cat-post">
-    {% for post in site.categories.machinelearning %}
+    {% for post in site.categories.data %}
       <a class="post-title" href="{{site.baseurl}}{{post.url}}" target="">
         <li>
           {{post.title}}
@@ -13,10 +13,10 @@
     </ul>
   </div>
 </div>
-{% for post in site.categories.machinelearning %}
+{% for post in site.categories.data %}
 <div class="col s12 m6 l4">
   <div class="card hoverable">
-    <div class="card-image waves-effect waves-block waves-light geopattern activator" data-pattern-id="{{post.title}}" style="background-image:url('{{site.baseurl}}/assets/res/K-036.png');width:100%;background-position:10px center; background-repeat: no-repeat;background-size:100%;">
+    <div class="card-image waves-effect waves-block waves-light geopattern activator" data-pattern-id="{{post.title}}" style="background-image:url('{{site.baseurl}}/assets/res/{{post.img}}.png');width:100%;background-position:10px center; background-repeat: no-repeat;background-size:100%;">
       <i class="material-icons waves-effect waves-block waves-light">more_vert</i>
       <a class="card-title center-align valign-wrapper" href="{{site.baseurl}}{{post.url}}" style="color:black;">{{post.title}}</a>
     </div>
