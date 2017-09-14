@@ -1,38 +1,27 @@
-{% assign sorted_repos = (site.github.public_repositories | sort: 'stargazers_count') | reverse  %}
-{{site.github.public_repositories}}
-<div class="col s12 switch">
-  <label>
-    Show forked projects
-    <input class="fork-switch" type="checkbox" checked="1" onchange="toggleForked()">
-    <span class="lever"></span>
-  </label>
+<div class="col s12 cat-div">
+  <div class="divider"></div>
+  <div class="cat-index">
+    <ul class="cat-post">
+    {% for post in site.categories.machinelearning %}
+      <a class="post-title" href="{{site.baseurl}}{{post.url}}" target="">
+        <li>
+          {{post.title}}
+          <small class="post-date">{{post.date | date_to_string}}</small>22
+        </li>
+      </a>
+    {% endfor %}
+    </ul>
+  </div>
 </div>
-{% for repo in sorted_repos %}
+{% for post in site.categories.machinelearning %}
 <div class="col s12 m6 l4">
   <div class="card hoverable">
-    <div class="card-image waves-effect waves-block waves-light geopattern activator" data-pattern-id="{{repo.name}}">
-      <i class="material-icons waves-effect waves-block waves-light">more_vert</i>11
-      <a class="card-title center-align valign-wrapper" href="{{repo.html_url}}" target="_blank">{{repo.name}}</a>22
+    <div class="card-image waves-effect waves-block waves-light geopattern activator" data-pattern-id="{{post.title}}" style="background-image:url('{{site.baseurl}}/assets/res/K-036.png');width:100%;background-position:10px center; background-repeat: no-repeat;background-size:100%;">
+      <i class="material-icons waves-effect waves-block waves-light">more_vert</i>
+      <a class="card-title center-align valign-wrapper" href="{{site.baseurl}}{{post.url}}" style="color:black;">{{post.title}}</a>
     </div>
     <div class="card-content valign-wrapper center-align activator">
-      <span class="activator grey-text text-darken-1">{{repo.description}}</span>33
-    </div>
-    <div class="card-reveal">
-      <div class="card-reveal-content">
-        <span class="card-title grey-text text-darken-4">Statistics<i class="material-icons right">close</i></span>44
-        <span class="tooltipped" data-position="bottom" data-delay="30" data-tooltip="{{repo.stargazers_count}} stars">
-          <i class="material-icons">star</i>55
-          {{repo.stargazers_count}}
-        </span>
-        <span class="tooltipped" data-position="bottom" data-delay="30" data-tooltip="{{repo.forks_count}} forks">
-          <i class="material-icons">call_split</i>
-          {{repo.forks_count}}
-        </span>
-        <span class="tooltipped" data-position="bottom" data-delay="30" data-tooltip="Last updated：{{repo.updated_at}}">
-          <i class="material-icons">access_time</i>
-          <time datetime="{{repo.updated_at}}" title="{{repo.updated_at}}">{{repo.updated_at | date: '%Y-%m-%d'}}</time>
-        </span>
-      </div>
+      <span class="activator grey-text text-darken-1">{{post.date}}</span>
     </div>
   </div>
 </div>

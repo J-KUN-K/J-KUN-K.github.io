@@ -17,7 +17,6 @@ css: ["index.css"]
     <a class="cat-chip" href="#{{cat[0] | slugify}}{% if test == testup %}_cap{% endif %}"><div class="chip z-depth-1">{{cat[0]}}</div></a>
   {% endfor %}
 <div class="divider"></div>
-
 <div class="row">
 <h4>Latest posts</h4>
   {% for post in paginator.posts %}
