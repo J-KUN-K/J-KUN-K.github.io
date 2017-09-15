@@ -1,11 +1,11 @@
 ---
 layout: post
-title:  "Syntax Highlighting Test"
+title:  "Syntax test"
 date:   2017-03-24 01:30:13 +0800
-categories: backend
+categories: study
 tags: test syntax
 ---
-Jekyll uses Rouge by default for syntax highlighting, here are some tests.
+tests
 
 Ruby:
 {% highlight ruby %}

@@ -2,23 +2,39 @@
 layout: page
 css: ["index.css"]
 ---
+<div class="row" style="margin-bottom:30px;">
 <h4>Notice</h4>
-  {% for ii in site.categories.notice %}
-    {% for aa in ii.posts %}
-      {{ aa }}
-    {% endfor %}
-    {{ ii.categories }}
-    {{ ii.posts }}
+<div class="divider"></div>
+  {% for post in site.categories.notice %}
+  <div class="col s12">
+    <div class="card hoverable">
+      <div class="card-content">
+        <span id="post-title" class="card-title">{{post.title}}</span>
+        <p id="post-date">
+          <i class="material-icons">date_range</i>
+          {{post.date | date: "%d/%m/%Y %H:%M"}}
+        </p>
+        <p id="post-content">{{post.excerpt | remove: '<p>' | remove: '</p>'}}</p>
+      </div>
+      <div class="card-action">
+        <a href="{{post.url | prepend: site.baseurl}}">
+          Read More
+        </a>
+      </div>
+    </div>
+  </div>
   {% endfor %}
-
+</div>
+<!--
   {% for cat in site.tags %}
     {% capture test %}{{cat[0] | slice: 0}}{% endcapture %}
     {% capture testup %}{{cat[0] | slice: 0 | upcase}}{% endcapture %}
     <a class="cat-chip" href="#{{cat[0] | slugify}}{% if test == testup %}_cap{% endif %}"><div class="chip z-depth-1">{{cat[0]}}</div></a>
-  {% endfor %}
-<div class="divider"></div>
+  {% endfor %}-->
+
 <div class="row">
 <h4>Latest posts</h4>
+<div class="divider"></div>
   {% for post in paginator.posts %}
   <div class="col s12">
     <div class="card hoverable">
