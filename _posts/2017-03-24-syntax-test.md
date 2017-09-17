@@ -5,7 +5,7 @@ date:   2017-03-24 01:30:13 +0800
 categories: study
 tags: python
 ---
-tests
+파이썬 공부 내용이 업데이트 될 예정입니다.
 
 Ruby:
 {% highlight ruby %}
