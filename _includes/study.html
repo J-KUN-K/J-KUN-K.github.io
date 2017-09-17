@@ -1,28 +1,35 @@
-<div class="col s12 cat-div">
-  <div class="divider"></div>
-  <div class="cat-index">
-    <ul class="cat-post">
+<div class="col s12 tag-div">
+  <div class="tag-list">
     {% for post in site.categories.study %}
-      <a class="post-title" href="{{site.baseurl}}{{post.url}}" target="">
-        <li>
-          {{post.title}}
-          <small class="post-date">{{post.date | date_to_string}}</small>22
-        </li>
-      </a>
+      {% capture test %}{{post.tags[0] | slice: 0}}{% endcapture %}
+      {% capture testup %}{{post.tags[0] | slice: 0 | upcase}}{% endcapture %}
+      <a class="tag-chip" href="#{{post.tags[0] | slugify}}{% if test == testup %}_cap{% endif %}"><div class="chip z-depth-1">{{post.tags[0]}}</div></a>
+      <!--{% for tag in site.tags %}
+
+        {% capture test %}{{tag[0] | slice: 0}}{% endcapture %}
+        {% capture testup %}{{tag[0] | slice: 0 | upcase}}{% endcapture %}
+        <a class="tag-chip" href="#{{tag[0] | slugify}}{% if test == testup %}_cap{% endif %}"><div class="chip z-depth-1">{{tag[0]}}</div></a>
+      {% endfor %}-->
     {% endfor %}
+  </div>
+  <div class="divider"></div>
+  <div class="tag-index">
+    {% for post in site.categories.study%}
+    {% capture test %}{{post.tags[0] | slice: 0}}{% endcapture %}
+    {% capture testup %}{{post.tags[0] | slice: 0 | upcase}}{% endcapture %}
+    <h4 id="{{post.tags[0] | slugify}}{% if test == testup %}_cap{% endif %}">{{post.tags[0]}}</h4>
+    <ul class="tag-post">
+      {% for tag in site.tags %}
+        {% if post.tags contains tag[0]  %}
+          <a class="post-title" href="{{site.baseurl}}{{post.url}}" target="">
+            <li>
+              {{post.title}}
+              <small class="post-date">{{post.date | date_to_string}}</small>
+            </li>
+          </a>
+        {% endif %}
+      {% endfor %}
     </ul>
+    {% endfor %}
   </div>
 </div>
-{% for post in site.categories.study %}
-<div class="col s12 m6 l4">
-  <div class="card hoverable">
-    <div class="card-image waves-effect waves-block waves-light geopattern activator" data-pattern-id="{{post.title}}" style="background-image:url('{{site.baseurl}}/assets/res/{{post.img}}');width:100%;background-position:10px center; background-repeat: no-repeat;background-size:100%;">
-      <i class="material-icons waves-effect waves-block waves-light">more_vert</i>
-      <a class="card-title center-align valign-wrapper" href="{{site.baseurl}}{{post.url}}" style="color:black;">{{post.title}}</a>
-    </div>
-    <div class="card-content valign-wrapper center-align activator">
-      <span class="activator grey-text text-darken-1">{{post.date}}</span>
-    </div>
-  </div>
-</div>
-{% endfor %}

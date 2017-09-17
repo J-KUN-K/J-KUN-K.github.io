@@ -1,9 +1,9 @@
 ---
 layout: post
-title:  "This is Just test"
+title:  "This will be stastics"
 date:   2017-03-25 01:30:13 +0800
 categories: study
-tags: test
+tags: stastics
 img: img0001.png
 ---
 I have some test

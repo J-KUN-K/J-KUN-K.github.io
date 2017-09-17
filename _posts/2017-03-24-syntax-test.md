@@ -1,9 +1,9 @@
 ---
 layout: post
-title:  "Syntax test"
+title:  "this will be python"
 date:   2017-03-24 01:30:13 +0800
 categories: study
-tags: test syntax
+tags: python
 ---
 tests
 
