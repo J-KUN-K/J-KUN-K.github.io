@@ -1,34 +1,31 @@
+{% assign study_list = "classify" %}
+{% assign study = "study"  %}
 <div class="col s12 tag-div">
   <div class="tag-list">
-    {% for post in site.categories.study %}
-      {% capture test %}{{post.tags[0] | slice: 0}}{% endcapture %}
-      {% capture testup %}{{post.tags[0] | slice: 0 | upcase}}{% endcapture %}
-      <a class="tag-chip" href="#{{post.tags[0] | slugify}}{% if test == testup %}_cap{% endif %}"><div class="chip z-depth-1">{{post.tags[0]}}</div></a>
-      <!--{% for tag in site.tags %}
-
-        {% capture test %}{{tag[0] | slice: 0}}{% endcapture %}
-        {% capture testup %}{{tag[0] | slice: 0 | upcase}}{% endcapture %}
-        <a class="tag-chip" href="#{{tag[0] | slugify}}{% if test == testup %}_cap{% endif %}"><div class="chip z-depth-1">{{tag[0]}}</div></a>
-      {% endfor %}-->
+    {% for tag in site.tags.study %}
+      {% capture test %}{{tag.tags[0] | slice: 0}}{% endcapture %}
+      {% capture testup %}{{tag.tags[0] | slice: 0 | upcase}}{% endcapture %}
+      <a class="tag-chip" href="#{{tag.tags[0] | slugify}}{% if test == testup %}_cap{% endif %}"><div class="chip z-depth-1">{{tag.tags[0]}}</div></a>
     {% endfor %}
   </div>
   <div class="divider"></div>
   <div class="tag-index">
-    {% for post in site.categories.study%}
-    {% capture test %}{{post.tags[0] | slice: 0}}{% endcapture %}
-    {% capture testup %}{{post.tags[0] | slice: 0 | upcase}}{% endcapture %}
-    <h4 id="{{post.tags[0] | slugify}}{% if test == testup %}_cap{% endif %}">{{post.tags[0]}}</h4>
+    {% for tag in site.tags.study %}
+    {% capture test %}{{tag.tags[0] | slice: 0}}{% endcapture %}
+    {% capture testup %}{{tag.tags[0] | slice: 0 | upcase}}{% endcapture %}
+    <h4 id="{{tag.tags[0] | slugify}}{% if test == testup %}_cap{% endif %}">{{tag.tags[0]}}</h4>
     <ul class="tag-post">
-      {% for tag in site.tags %}
-        {% if post.tags contains tag[0]  %}
-          <a class="post-title" href="{{site.baseurl}}{{post.url}}" target="">
-            <li>
-              {{post.title}}
-              <small class="post-date">{{post.date | date_to_string}}</small>
+      {% for pp in site.tags %}
+        {% if tag.tags[0] contains pp[0]  %}
+          {% for post in pp[1]%}
+            <a class="post-title" href="{{site.baseurl}}{{post.url}}" target="">
+            <li>{{post.title}}
+            <small class="post-date">{{post.date | date_to_string}}</small>
             </li>
-          </a>
+            </a>
+          {% endfor %}
         {% endif %}
-      {% endfor %}
+      {% endfor %}  
     </ul>
     {% endfor %}
   </div>
