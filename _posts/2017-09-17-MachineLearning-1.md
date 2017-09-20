@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "간단한 3층 시경망과 소프트맥스 함수"
+title:  "간단한 3층 신경망과 소프트맥스 함수"
 date:   2017-09-13 17:00:13 +0800
 categories: machinelearning
 tags: machinelearning
