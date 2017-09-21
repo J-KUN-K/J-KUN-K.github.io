@@ -128,10 +128,61 @@ id는 환자에 대한 유일한 식별자입니다. 유용한 정보를 제공�
 {% highlight python linenos %}
 > wbcd_train <- wbcd_n[1:469, ]
 > wbcd_test <- wbcd_n[470:569, ]
-> wbcd_train_labels <- wbcd_n[1:469, 1]
-> wbcd_test_labels <- wbcd_n[470:569, 1]
+> wbcd_train_labels <- wbcd[1:469, 1]
+> wbcd_test_labels <- wbcd[470:569, 1]
 {% endhighlight %}
 
  ##### 데이터 전처리 : 훈련, 테스트 데이터
 
+ {% highlight python linenos %}
+> package("class")
+> library("class")
+> wbcd_test_pred <- knn(train = wbcd_train, test = wbcd_test, cl=wbcd_train_labels, k =21)
+{% endhighlight %}
 
+ ##### 모델 성능 평가
+
+ {% highlight python linenos %}
+> package("gmodels")
+> library("gmodels")
+> wbcd_test_pred <- knn(train = wbcd_train, test = wbcd_test, cl=wbcd_train_labels, k =21)
+> CrossTable(x = wbcd_test_labels, y = wbcd_test_pred, prop.chisq=FALSE)
+{% endhighlight %}
+
+##### 결괏값
+
+ {% highlight python linenos %}
+
+                 | wbcd_test_pred 
+wbcd_test_labels |    Benign | Malignant | Row Total | 
+-----------------|-----------|-----------|-----------|
+          Benign |        77 |         0 |        77 | 
+                 |     1.000 |     0.000 |     0.770 | 
+                 |     0.975 |     0.000 |           | 
+                 |     0.770 |     0.000 |           | 
+-----------------|-----------|-----------|-----------|
+       Malignant |         2 |        21 |        23 | 
+                 |     0.087 |     0.913 |     0.230 | 
+                 |     0.025 |     1.000 |           | 
+                 |     0.020 |     0.210 |           | 
+-----------------|-----------|-----------|-----------|
+    Column Total |        79 |        21 |       100 | 
+                 |     0.790 |     0.210 |           | 
+-----------------|-----------|-----------|-----------|
+
+{% endhighlight %}
+
+흔히 말하는 1종 오류가 발생했습니다. 악성인 환자에게 양성 판단2건  2종 오류는 발생하지 않았습니다. 
+
+##### 모델성능 높이기
+
+ {% highlight python linenos %}
+
+> wbcd_z <- as.data.frame(scale(wdbc[-1]))
+> summary(wbcd_z$area_mean)
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+-1.4532 -0.6666 -0.2949  0.0000  0.3632  5.2459 
+
+{% endhighlight %}
+
+돌렸는데 결측치 에러 발생. 확인 중
