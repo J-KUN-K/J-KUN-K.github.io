@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "[Stock Info] 주식 정보 스크리너"
+title:  "주식 정보 스크리너"
 date:   2017-09-20 15:00:13 +0800
 categories: project
 tags: [Stock, project]
