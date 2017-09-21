@@ -9,6 +9,7 @@ img: sql-performance-1-1.png
 
 **PK 구성 INDEX 이용이 성능에 미치는 영향을 살펴봅니다.**
 
+---
 
 ##### PK컬럼 순서가 성능에 미치는 영향
 

@@ -7,6 +7,8 @@ tags: [python, study]
 ---
 파이썬 공부 내용이 업데이트 될 예정입니다.
 
+---
+
 Ruby:
 {% highlight ruby %}
 def print_hi(name)
