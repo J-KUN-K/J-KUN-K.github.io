@@ -3,7 +3,7 @@ layout: post
 title:  "kNN algorithm을 이용한 유방암 진찰"
 date:   2017-09-20 13:00:13 +0800
 categories: project
-tags: [R, project]
+tags: [R, study]
 comments: 1
 ---
 **kNN 알고리즘을 통해 유방암 진찰 시뮬레이션을 해본다.**
@@ -176,13 +176,4 @@ wbcd_test_labels |    Benign | Malignant | Row Total |
 
 ##### 모델성능 높이기
 
- {% highlight python linenos %}
-
-> wbcd_z <- as.data.frame(scale(wdbc[-1]))
-> summary(wbcd_z$area_mean)
-   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
--1.4532 -0.6666 -0.2949  0.0000  0.3632  5.2459 
-
-{% endhighlight %}
-
-돌렸는데 결측치 에러 발생. 확인 중
+진행예정

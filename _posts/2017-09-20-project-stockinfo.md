@@ -3,7 +3,7 @@ layout: post
 title:  "주식 정보 스크리너"
 date:   2017-09-20 15:00:13 +0800
 categories: project
-tags: [Stock, project]
+tags: [Python, project]
 comments: 1
 ---
 **python Django를 이용해 주식 정보 비교, 시각화, 통계치, 제무재표 등을 이용할 수 있게 꾸밉니다.**
