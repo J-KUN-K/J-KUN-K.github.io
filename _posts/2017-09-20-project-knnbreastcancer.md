@@ -2,7 +2,7 @@
 layout: post
 title:  "kNN algorithm을 이용한 유방암 진찰"
 date:   2017-09-20 13:00:13 +0800
-categories: project
+categories: study
 tags: [R, study]
 comments: 1
 ---
