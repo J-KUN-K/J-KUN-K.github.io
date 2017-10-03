@@ -18,7 +18,7 @@
         {% if tag.tags[0] contains pp[0]  %}
           {% for post in pp[1]%}
             <a class="post-title" href="{{site.baseurl}}{{post.url}}" target="">
-            <li>{{post.title}}
+            <li style="color:blue;">{{post.title}}
             <small class="post-date">{{post.date | date_to_string}}</small>
             </li>
             </a>
