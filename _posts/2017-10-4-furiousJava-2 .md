@@ -3,7 +3,7 @@ layout: post
 title:  "[Java web] 2. JDBC(진행중)"
 date:   2017-10-4 22:00:13 +0800
 categories: backend
-tags: [java, backend]
+tags:  backend
 comments: 1
 img: django-4-1.png
 ---
