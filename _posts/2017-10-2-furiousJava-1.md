@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "[Java web develop] 1. 서블릿 프로그래밍"
+title:  "[Java web] 1. Servlet"
 date:   2017-10-4 20:00:13 +0800
 categories: backend
 tags: java
