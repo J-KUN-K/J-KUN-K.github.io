@@ -12,9 +12,9 @@ img: django-4-1.png
 
 ---
 
-##### 데이터베이스 다루기
+#### 데이터베이스 다루기
 
-###### project02.servlets.MemberListServlet.java
+##### project02.servlets.MemberListServlet.java
 
 * 직원 정보 리스트
 
@@ -87,13 +87,13 @@ public class MemberListService extends GenericServlet {
 
 <br>
 
-#### HttpServlet을 이용한 get
+#### HttpServlet을 이용한 get, post 처리
 
 ##### project02.servlets.MemberAddServlet.java
 
 * 직원정보 입력폼
 
-폼은 일단 임시 형태로....
+폼은 일단 임시 형태로.... GeneticServlet 을 상속한 HttpServlet 이 service를 호출해 요청에 따라 doXXX 형태로 제공된다.(오버라이드해야한다)
 
 {% highlight python linenos %}
 package project02.servlets;
@@ -131,16 +131,38 @@ public class MemberAddServlet extends HttpServlet {
 
 <br>
 
-#### HttpServlet을 이용한 get
 
-##### project02.servlets.MemberAddServlet.java
-
-* 직원정보 입력폼
+* 직원정보 등록 테스트
 
 {% highlight python linenos %}
 
 
 {% endhighlight %}
+
+<br>
+
+
+### 서블릿 초기화 매개변수
+
+#### javaweb/WebContent/WEB-INF/web.xml
+
+* 직원정보 입력폼
+
+{% highlight python linenos %}
+--------------임시
+
+{% endhighlight %}
+
+<br>
+
+* 회원 상세 정보 출력하는 서블릿
+
+{% highlight python linenos %}
+--------------임시
+
+{% endhighlight %}
+
+<br>
 
 {% highlight python linenos %}
 
