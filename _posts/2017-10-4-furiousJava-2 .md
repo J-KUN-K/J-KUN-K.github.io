@@ -101,6 +101,10 @@ package project02.servlets;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -116,16 +120,47 @@ public class MemberAddServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         out.println("< html>< head>< title>test</ title></ head></ html>");
-        out.println("< body>< h1>직원 등록</ h1>");
+        out.println("< body>< h1>회원 등록</ h1>");
+        out.println("< form action='add' method='post'>");
         out.println("이름 : < input type='text' name='name'>< br>");
         out.println("이메일 : < input type='text' name='email'>< br>");
-        out.println("암호 : < input type='text' name='password'> < br>");
-        out.println("< input type='submit' value='추가'>< r>");
+        out.println("암호 : < input type='text' name='password'>< br>");
+        out.println("< input type='submit' value='추가'>< br>");
         out.println("< input type='reset' value='취소'>< br>");
         out.println("</ form>");
         out.println("</ body></ html>");
     }
+    
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        Connection con = null;
+        PreparedStatement stmt = null;
+        String jdbcUrl = "jdbc:oracle:thin:@localhost:1521:myoracle";
+        String userID = "hr";
+        String userPass = "hr";
+        
+        try {
+            con = DriverManager.getConnection(jdbcUrl, userID, userPass);
+            System.out.println("connection success");
+            stmt = con.prepareStatement("insert into employees(employee_id, "
+                    + "first_name, last_name, email, hire_date, job_id)"
+                    + " vlaues (?,?,?,?,TO_DATE(SYS_DATE,'yyyy/mm/dd hh24:mi:ss'),?)");
+            stmt.setString(1, request.getParameter(""));
+            stmt.setString(2, request.getParameter(""));
+            stmt.setString(3, request.getParameter(""));
+            stmt.setString(4, request.getParameter(""));
+            stmt.setString(5, request.getParameter(""));
+            stmt.executeUpdate();
+            
+            response.setContentType("text/html;charset=UTF-8");
+
+        } catch (Exception e) {
+            throw new ServletException(e);
+        }
+    }
 }
+
 
 {% endhighlight %}
 
@@ -135,8 +170,7 @@ public class MemberAddServlet extends HttpServlet {
 * 직원정보 등록 테스트
 
 {% highlight python linenos %}
-
-
+--------------임시
 {% endhighlight %}
 
 <br>
