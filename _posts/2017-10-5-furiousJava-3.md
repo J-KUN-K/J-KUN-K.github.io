@@ -83,26 +83,15 @@ private String calculate(int a, int b, String op) {
 
 <br>
 
-### 서블릿에서 뷰 분리하기
-
-##### javaweb/src/project02/vo/Member.java
-
-*  멤버를 vo로 분리하여 MemberListServlet이 생성 MemberList.jsp가 사용 가능하게 한다. 
-
-{% highlight python linenos %}
-{% endhighlight %}
-
-<br>
 
 ### 서블릿에서 뷰 분리하기
 
 ##### javaweb/src/project02/vo/Member.java
 
-*  멤버를 vo로 분리하여 MemberListServlet이 생성 MemberList.jsp가 사용 가능하게 한다. 
+*  vo를 생성하여 MemberListServlet이 생성하고 MemberList.jsp가 사용 가능하게 한다. 
 
 {% highlight python linenos %}
-package spms.servlets;
-
+package project02.vo;
 
 public class Member {
         private int employee_id;
@@ -111,25 +100,15 @@ public class Member {
         private String email;
         //private String [] job_id = ;
         private String job_id;
-
-    
+        private String hire_date;
     
     public int getId() {
         return employee_id;
     }
     
-    public Member setId(int employee_id) {
+    public Member setEmployeeId(int employee_id) {
         this.employee_id = employee_id;
         return this;
-    }
-    
-    public Member(String employee_id,String first_name, String last_name, 
-            String job_id, String email, int age) {
-        super();
-        this.first_name = first_name;
-        this.last_name = last_name;
-        this.job_id = job_id;
-        this.email = email;
     }
     
     public String getFirstName() {
@@ -141,8 +120,17 @@ public class Member {
         return this;
     }
     
+    public Member setLastName(String last_name) {
+        this.last_name = last_name;
+        return this;
+    }
+    
     public String getLastName() {
         return this.last_name;
+    }
+    
+    public String getJobId() {
+        return this.job_id;
     }
     
     public Member setJobId(String job_id) {
@@ -158,7 +146,99 @@ public class Member {
         this.email = email;
         return this;
     }
+    
+    public String getHireDate() {
+        return hire_date;
+    }
+    
+    public Member setHireDate(String hire_date) {
+        this.hire_date = hire_date;
+        return this;
+    }
 }
+
+{% endhighlight %}
+
+<br>
+
+### 서블릿에 뷰 관련 코드 제거
+
+##### javaweb/src/project02/servlets/MemberListServlet.java
+
+*  멤버를 vo로 분리하여 MemberListServlet이 생성 MemberList.jsp가 사용 가능하게 한다. 
+
+{% highlight python linenos %}
+package project02.servlets;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.GenericServlet;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.annotation.WebServlet;
+
+@WebServlet("/member/list")
+public class MemberListService extends GenericServlet {
+    
+    @Override
+    public void service(ServletRequest request, ServletResponse response) {
+        Connection con = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        
+        try {
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            System.out.println("drive load success");
+        }
+        catch(ClassNotFoundException e) {
+            System.out.println("에러1");
+            e.printStackTrace();
+        }
+        
+        String jdbcUrl = "jdbc:oracle:thin:@localhost:1521:myoracle";
+        String userID = "hr";
+        String userPass = "hr";
+
+        try {
+            con = DriverManager.getConnection(jdbcUrl, userID, userPass);
+            System.out.println("connection success");
+            stmt = con.createStatement();
+            rs = stmt.executeQuery("select employee_id, first_name, last_name from employees");
+            
+            
+            response.setCharacterEncoding("UTF-8");
+            response.setContentType("text/html");
+            PrintWriter out = response.getWriter(); 
+            out.println("<h1>사원목록</h1>");
+            out.println("<p><a href='add'>신규 회원</a></p>");
+            
+            while(rs.next()) {
+                out.println("<a href='update?no="+rs.getInt("employee_id")+"'>"
+                +rs.getInt("employee_id")+", "+rs.getString("first_name")+" "
+                + rs.getString("last_name")+"</a><br>");
+            }
+        }
+        catch(Exception e) {
+            System.out.println("에러2");
+            e.printStackTrace();
+        }
+        finally {
+            try {if(con!=null) con.close();} catch(Exception e){e.printStackTrace();};
+            try {if(stmt!=null) stmt.close();} catch(Exception e){e.printStackTrace();};
+            try {if(rs!=null) rs.close();} catch(Exception e){e.printStackTrace();};
+        }   
+    }
+}
+
+
+
 
 {% endhighlight %}
 
@@ -172,3 +252,4 @@ public class Member {
 
 {% highlight python linenos %}
 {% endhighlight %}
+
