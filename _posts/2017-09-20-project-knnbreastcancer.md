@@ -3,7 +3,7 @@ layout: post
 title:  "kNN algorithm을 이용한 유방암 진찰"
 date:   2017-09-20 13:00:13 +0800
 categories: study
-tags: [R, study]
+tags: [r, project]
 comments: 1
 ---
 **kNN 알고리즘을 통해 유방암 진찰 시뮬레이션을 해본다.**
