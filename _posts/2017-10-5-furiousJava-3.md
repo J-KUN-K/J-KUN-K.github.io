@@ -163,11 +163,13 @@ public class Member {
 
 ### 서블릿에 뷰 관련 코드 제거
 
-##### javaweb/src/project02/servlets/MemberListServlet.java
+#### javaweb/src/project02/servlets/MemberListServlet.java
 
-*  멤버를 vo로 분리하여 MemberListServlet이 생성 MemberList.jsp가 사용 가능하게 한다. 
+* 뷰를 jsp가 하게 되면서 서블릿에서 뷰 관련 코드를 제거한다.
 
 {% highlight python linenos %}
+package project02.servlets;
+
 package project02.servlets;
 
 import java.sql.Connection;
@@ -175,20 +177,29 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
+import java.util.ArrayList;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import javax.servlet.GenericServlet;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import project02.vo.*;
 
 @WebServlet("/member/list")
-public class MemberListService extends GenericServlet {
+public class MemberListServlet extends HttpServlet {
+    private static final long serialVersionUID = 1L;
     
     @Override
-    public void service(ServletRequest request, ServletResponse response) {
+    public void doGet(HttpServletRequest request, HttpServletResponse response) 
+    throws IOException, ServletException {
         Connection con = null;
         Statement stmt = null;
         ResultSet rs = null;
@@ -205,29 +216,35 @@ public class MemberListService extends GenericServlet {
         String jdbcUrl = "jdbc:oracle:thin:@localhost:1521:myoracle";
         String userID = "hr";
         String userPass = "hr";
-
+        
         try {
             con = DriverManager.getConnection(jdbcUrl, userID, userPass);
             System.out.println("connection success");
+            
+            ArrayList<Member> members = new ArrayList<Member>();
+            
             stmt = con.createStatement();
-            rs = stmt.executeQuery("select employee_id, first_name, last_name from employees");
+            rs = stmt.executeQuery("select employee_id, first_name, last_name, email, hire_date from employees");
             
+            response.setContentType("text/html; charset=UTF-8");
             
-            response.setCharacterEncoding("UTF-8");
-            response.setContentType("text/html");
-            PrintWriter out = response.getWriter(); 
-            out.println("<h1>사원목록</h1>");
-            out.println("<p><a href='add'>신규 회원</a></p>");
-            
+    
             while(rs.next()) {
-                out.println("<a href='update?no="+rs.getInt("employee_id")+"'>"
-                +rs.getInt("employee_id")+", "+rs.getString("first_name")+" "
-                + rs.getString("last_name")+"</a><br>");
-            }
+                members.add(new Member()
+                        .setEmployeeId(rs.getInt("employee_id"))
+                        .setFirstName(rs.getString("first_name"))
+                        .setLastName(rs.getString("last_name"))
+                        .setEmail(rs.getString("email"))
+                        .setHireDate(rs.getString("hire_date"))
+                    );
+                }
+            
+                request.setAttribute("members", members);
+                RequestDispatcher rd = request.getRequestDispatcher("/member/MemberList.jsp");
+                rd.include(request, response);
         }
         catch(Exception e) {
-            System.out.println("에러2");
-            e.printStackTrace();
+            throw new ServletException(e);
         }
         finally {
             try {if(con!=null) con.close();} catch(Exception e){e.printStackTrace();};
@@ -236,20 +253,53 @@ public class MemberListService extends GenericServlet {
         }   
     }
 }
+{% endhighlight %}
+
+<br>
+
+### 헤더와 테일 include
+
+#### 임시
+
+*  임시
 
 
+{% highlight python linenos %}
 
+----------임시
 
 {% endhighlight %}
 
 <br>
 
-### 서블릿에서 뷰 분리하기
+### ServletContext를 이용한 공유 자원 세팅 서블릿 
 
-##### javaweb/src/project02/vo/Member.java
+#### javaweb/src/project02/servlets/AooInitServlet.java
 
-*  멤버를 vo로 분리하여 MemberListServlet이 생성 MemberList.jsp가 사용 가능하게 한다. 
+*  ServletContext 범위 안에 init 함수를 이용해 db접속 코드를 공유
+
+세팅 후에 javaweb/src/project02/servlets/MemberListServlet.java에 db 접속 관련 코드 모두 삭제
 
 {% highlight python linenos %}
+
+----------임시
+
 {% endhighlight %}
 
+
+
+<br>
+
+### HttpSession을 이용해 로그인 처리 
+
+#### javaweb/src/project02/servlets/AooInitServlet.java
+
+*  ServletContext 범위 안에 init 함수를 이용해 db접속 코드를 공유
+
+세팅 후에 javaweb/src/project02/servlets/MemberListServlet.java에 db 접속 관련 코드 모두 삭제
+
+{% highlight python linenos %}
+
+----------임시
+
+{% endhighlight %}
