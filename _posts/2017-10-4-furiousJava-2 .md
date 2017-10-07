@@ -26,7 +26,11 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
+import java.io.IOException;
 import java.io.PrintWriter;
+
+import java.util.Enumeration;
+import java.util.Map;
 
 import javax.servlet.GenericServlet;
 import javax.servlet.ServletException;
@@ -61,14 +65,18 @@ public class MemberListService extends GenericServlet {
             System.out.println("connection success");
             stmt = con.createStatement();
             rs = stmt.executeQuery("select employee_id, first_name, last_name from employees");
-                       
+            
+            
             response.setCharacterEncoding("UTF-8");
             response.setContentType("text/html");
             PrintWriter out = response.getWriter(); 
             out.println("<h1>사원목록</h1>");
+            out.println("<p><a href='add'>신규 회원</a></p>");
+            
             while(rs.next()) {
-                out.println(rs.getInt("employee_id")+", "+
-                rs.getString("first_name")+" "+ rs.getString("last_name")+"<br>");
+                out.println("<a href='update?no="+rs.getInt("employee_id")+"'>"
+                +rs.getInt("employee_id")+", "+rs.getString("first_name")+" "
+                + rs.getString("last_name")+"</a><br>");
             }
         }
         catch(Exception e) {
@@ -82,6 +90,9 @@ public class MemberListService extends GenericServlet {
         }   
     }
 }
+
+
+
 {% endhighlight %}
 
 
@@ -193,7 +204,6 @@ public class MemberAddServlet extends HttpServlet {
 
 {% highlight python linenos %}
 --------------임시
-
 {% endhighlight %}
 
 <br>
