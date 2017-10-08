@@ -1,9 +1,9 @@
 ---
 layout: post
 title:  "[Java web] 4. MVC 아키텍쳐 - 2(진행중)"
-date:   2017-10-5 20:00:13 +0800
+date:   2017-10-7 20:00:13 +0800
 categories: backend
-tags:  java
+tags:  javaWeb
 comments: 1
 img: django-4-1.png
 ---

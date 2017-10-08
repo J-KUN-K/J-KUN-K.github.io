@@ -3,7 +3,7 @@ layout: post
 title:  "[Java web] 3. MVC 아키텍쳐(진행중)"
 date:   2017-10-5 22:00:13 +0800
 categories: backend
-tags:  java
+tags:  javaWeb
 comments: 1
 img: django-4-1.png
 ---
@@ -328,58 +328,46 @@ public class AppInitServlet extends HttpServlet {
 
 <br>
 
+
+
 ### HttpSession을 이용해 로그인 처리 
 
-#### javaweb/src/project02/servlets/AppInitServlet.java
+세션을 이용해 로그인 및 로그아웃 처리를 한다.
 
-*  ServletContext 범위 안에 init 함수를 이용해 db접속 코드를 공유
+#### javaweb/src/project02/servlets/AooInitServlet.java
 
-세팅 후에 javaweb/src/project02/servlets/MemberListServlet.java에 db 접속 관련 코드 모두 삭제
 
 {% highlight python linenos %}
 package project02.servlets;
 
+import project02.vo.Member;
+
+import java.io.IOException;
 import java.sql.Connection;
-import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
-import javax.servlet.ServletConfig;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 
-public class AppInitServlet extends HttpServlet {
+@WebServlet("/auth/login")
+public class LoginServlet extends HttpServlet {
     
-    @Override 
-    public void init(ServletConfig config) throws ServletException {
-        System.out.println("AppInitiation start");
-        super.init(config);
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) {
         
-        try {
-            ServletContext sc = this.getServletContext();
-            Class.forName(sc.getInitParameter("driver"));
-            Connection conn = DriverManager.getConnection(
-                    sc.getInitParameter("oracleUrl"), "hr", "hr"
-                    );
-            sc.setAttribute("conn", conn);
-        } catch (Exception e) {
-            throw new ServletException(e);
-        }
     }
     
     @Override
-    public void destroy() {
-        System.out.println("AppInitiation end");
-        super.destroy();
-        Connection conn = (Connection)this.getServletContext().getAttribute("conn");
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) {
         
-        try {
-            if (conn != null && conn.isClosed() == false) {
-                    conn.close();
-            }
-        } catch (Exception e) {}
     }
 }
-
 
 {% endhighlight %}

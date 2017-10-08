@@ -3,11 +3,11 @@ layout: post
 title:  "[Java web] 1. Servlet"
 date:   2017-10-4 20:00:13 +0800
 categories: backend
-tags: java
+tags: javaWeb
 comments: 1
 ---
 
-**자바 웹 개발 워크북을 따라해보는 예제 코드**
+자바 웹 개발 워크북을 따라해보는 예제 코드
 
 ---
 

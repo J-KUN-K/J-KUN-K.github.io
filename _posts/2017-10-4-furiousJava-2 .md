@@ -1,9 +1,9 @@
 ---
 layout: post
-title:  "[Java web] 2. JDBC(진행중)"
+title:  "[Java web] 2. JDBC"
 date:   2017-10-4 22:00:13 +0800
 categories: backend
-tags:  java
+tags:  javaWeb
 comments: 1
 img: django-4-1.png
 ---
@@ -104,7 +104,7 @@ public class MemberListService extends GenericServlet {
 
 * 직원정보 입력폼
 
-폼은 일단 임시 형태로.... GeneticServlet 을 상속한 HttpServlet 이 service를 호출해 요청에 따라 doXXX 형태로 제공된다.(오버라이드해야한다)
+폼은 일단 임시 형태로.... GenericServlet 을 상속한 HttpServlet 이 service를 호출해 요청에 따라 doXXX 형태로 제공된다.(오버라이드해야한다)
 
 {% highlight python linenos %}
 package project02.servlets;
@@ -177,6 +177,67 @@ public class MemberAddServlet extends HttpServlet {
 
 <br>
 
+### 필터 사용
+
+setEncoding 을 매번 설정하지 말고 필터를 통해 서블릿 요청이 들어왔을때 필터에서 처리하도록 한다.
+
+#### javaweb/WebContent/WEB-INF/web.xml 필터 관련 배치 정보 
+
+{% highlight python linenos %}
+  
+  <!-- 필터 선언 -->
+  <filter>
+    <filter-name>CharacterEncodingFilter</filter-name>
+    <filter-class>project02.filters.CharacterEncodingFilter</filter-class>
+    <init-param>
+        <param-name>encoding</param-name>
+        <param-value>UTF-8</param-value>
+    </init-param>
+  </filter>
+  
+{% endhighlight %}
+
+<br>
+
+#### javaweb/project02.filters/CharacterEncodingFilter.java
+
+
+{% highlight python linenos %}
+  
+package project02.filters;
+
+import java.io.IOException;
+
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+
+public class CharacterEncodingFilter implements Filter {
+    FilterConfig config;
+    
+    @Override
+    public void init(FilterConfig config) throws ServletException {
+        this.config = config;
+    }
+    
+    @Override
+    public void doFilter(ServletRequest request, ServletResponse response,
+            FilterChain nextFilter) throws IOException, ServletException {
+        request.setCharacterEncoding(config.getInitParameter("encoding"));
+        nextFilter.doFilter(request, response);
+    }
+    
+    @Override
+    public void destroy() {}
+}
+
+  
+{% endhighlight %}
+
+<br>
 
 * 직원정보 등록 테스트
 
@@ -188,15 +249,24 @@ public class MemberAddServlet extends HttpServlet {
 
 
 ### 서블릿 초기화 매개변수
-
+<br>
 #### javaweb/WebContent/WEB-INF/web.xml
 
 * 직원정보 입력폼
 
-{% highlight python linenos %}
---------------임시
+![img]({{baseurl}}/assets/res/backend/furious-2-1.png)
 
-{% endhighlight %}
+<br>
+
+* 직원정보 입력 성공 
+
+![img]({{baseurl}}/assets/res/backend/furious-2-2.png)
+
+<br>
+
+* db에서  입력 확인 
+
+![img]({{baseurl}}/assets/res/backend/furious-2-3.png)
 
 <br>
 
@@ -212,4 +282,6 @@ public class MemberAddServlet extends HttpServlet {
 
 
 {% endhighlight %}
+
+
 
