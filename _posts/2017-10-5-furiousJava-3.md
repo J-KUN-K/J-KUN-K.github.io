@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "[Java web] 3. MVC 아키텍쳐(진행중)"
+title:  "[Java web] 3. MVC 아키텍쳐"
 date:   2017-10-5 22:00:13 +0800
 categories: backend
 tags:  javaWeb
@@ -254,20 +254,7 @@ public class MemberListServlet extends HttpServlet {
 }
 {% endhighlight %}
 
-<br>
 
-### 헤더와 테일 include
-
-#### 임시
-
-*  임시
-
-
-{% highlight python linenos %}
-
-----------임시
-
-{% endhighlight %}
 
 <br>
 
@@ -327,7 +314,6 @@ public class AppInitServlet extends HttpServlet {
 {% endhighlight %}
 
 <br>
-
 
 
 ### HttpSession을 이용해 로그인 처리 
@@ -428,9 +414,8 @@ public class MemberListServlet extends HttpServlet {
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <! DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-
+< jsp:useBean id="member" scope="session"  type="project02.vo.Member"/>
 <%
-Member member = (Member) session.getAttribute("member");
 if (member == null ) {
 %>
 < div style="background-color:black;color:#ffffff;height:20px;padding:5px;">
@@ -447,10 +432,39 @@ Header
 
 <br>
 
-#### 임시
+#### javaweb/WebContent/member/MemberList.jsp
 
 {% highlight python linenos %}
---- 임시
+<%@ page import="project02.vo.Member" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<! DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+< html>
+< head>
+< meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+< title>Insert title here</title>
+</ head>
+< body>
+< jsp:include page="../Header.jsp" />
+< h1>직원 목록</ h1>
+< jsp:useBean id="members" scope="request" 
+class="java.util.ArrayList" type="java.util.ArrayList< project02.vo.Member>"/>
+<% 
+for (Member member : members ) {
+%>
+    < a href='update?no=<%=member.getEmployeeId() %>'><%=member.getEmployeeId() %>
+    <%=member.getFirstName() %>,
+    <%=member.getLastName() %>
+    </ a>
+    <%=member.getEmail() %>
+    <%=member.getHireDate() %>
+    <br>
+<%}%>
+
+
+</ body>
+</ html>
 {% endhighlight %}
 
 <br>
