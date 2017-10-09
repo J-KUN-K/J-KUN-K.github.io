@@ -336,16 +336,21 @@ public class AppInitServlet extends HttpServlet {
 
 #### javaweb/src/project02/servlets/LoginForm.java
 
+여기서 AppInint에서 conn 처리를 맡겨놓고 다시 클로즈하는 바람에 sql 에러가 발생했다. 수정완료
 
 {% highlight python linenos %}
 package project02.servlets;
 
-import project02.vo.Member;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
+import java.util.ArrayList;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.io.PrintWriter;
+
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -354,50 +359,61 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
+import project02.vo.*;
 
-@WebServlet("/auth/login")
-public class LoginServlet extends HttpServlet {
+@WebServlet("/member/list")
+public class MemberListServlet extends HttpServlet {
+    private static final long serialVersionUID = 1L;
     
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) 
-    throws IOException, ServletException {
-        RequestDispatcher rd = request.getRequestDispatcher("/auth/LoginForm.jsp");
-        rd.forward(request, response);
-    }
-    
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) 
+    public void doGet(HttpServletRequest request, HttpServletResponse response) 
     throws IOException, ServletException {
         Connection conn = null;
-        PreparedStatement stmt = null;
+        Statement stmt = null;
         ResultSet rs = null;
+        ServletContext sc = this.getServletContext();
         
         try {
-            ServletContext sc = this.getServletContext();
             conn = (Connection) sc.getAttribute("conn");
-            stmt = conn.prepareStatement("select employee_id, first_name, last_name, email"
-                    + "where email=?");
-            stmt.setString(1, request.getParameter("email"));
-            rs = stmt.executeQuery();
-            
-            if (rs.next()) {
-                Member member = new Member().setEmail("email");
-                HttpSession session = request.getSession();
-                session.setAttribute("member", member);
-                
-                response.sendRedirect("../member/list");
-            } else {
-                RequestDispatcher rd = request.getRequestDispatcher("/auth/LoginFail.jsp");
-                rd.forward(request, response);
-            }
-        } catch (Exception e) {
-            throw new ServletException(e);
-        } finally {
-            try {if (rs != null) rs.close();} catch (Exception e) {}
-            try {if (stmt != null) stmt.close();} catch (Exception e) {}
         }
+        catch(Exception e) {
+            System.out.println("에러1");
+            e.printStackTrace();
+        }
+        
+
+        try {
+
+            ArrayList<Member> members = new ArrayList<Member>();
+            System.out.println("에러2");
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery("select employee_id, first_name, last_name, email, hire_date from employees");
+            System.out.println("에러3");
+            response.setContentType("text/html; charset=UTF-8");
+            System.out.println("에러4");
+    
+            while(rs.next()) {
+                members.add(new Member()
+                        .setEmployeeId(rs.getInt("employee_id"))
+                        .setFirstName(rs.getString("first_name"))
+                        .setLastName(rs.getString("last_name"))
+                        .setEmail(rs.getString("email"))
+                        .setHireDate(rs.getString("hire_date"))
+                    );
+                }
+            
+                request.setAttribute("members", members);
+                RequestDispatcher rd = request.getRequestDispatcher("/member/MemberList.jsp");
+                rd.include(request, response);
+        }
+        catch(Exception e) {
+            throw new ServletException(e);
+        }
+        finally {
+            try {if(stmt!=null) stmt.close();} catch(Exception e){};
+            try {if(rs!=null) rs.close();} catch(Exception e) {};
+        }   
     }
 }
 {% endhighlight %}
@@ -408,16 +424,32 @@ public class LoginServlet extends HttpServlet {
 #### javaweb/WebContent/auth/LoginForm.jsp
 
 {% highlight python linenos %}
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
---- 임시
+<%@page import="project02.vo.Member" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<! DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<%
+Member member = (Member) session.getAttribute("member");
+if (member == null ) {
+%>
+< div style="background-color:black;color:#ffffff;height:20px;padding:5px;">
+Header
+< span style="float:right;">로그인 Required</ span>
+</ div>
+<% } else { %>
+< div style="background-color:black;color:#ffffff;height:20px;padding:5px;">
+Header
+< span style="float:right;">세션 로그인 메일 : <%=member.getEmail() %></span>
+</ div>
+<% } %>
 {% endhighlight %}
 
 <br>
 
-#### javaweb/WebContent/auth/LoginFail.jsp
+#### 임시
 
 {% highlight python linenos %}
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
 --- 임시
 {% endhighlight %}
 
