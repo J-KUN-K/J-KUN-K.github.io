@@ -273,7 +273,7 @@ public class MemberListServlet extends HttpServlet {
 
 ### ServletContext를 이용한 공유 자원 세팅 서블릿 
 
-#### javaweb/src/project02/servlets/AooInitServlet.java
+#### javaweb/src/project02/servlets/AppInitServlet.java
 
 *  ServletContext 범위 안에 init 함수를 이용해 db접속 코드를 공유
 
@@ -334,7 +334,7 @@ public class AppInitServlet extends HttpServlet {
 
 세션을 이용해 로그인 및 로그아웃 처리를 한다.
 
-#### javaweb/src/project02/servlets/AooInitServlet.java
+#### javaweb/src/project02/servlets/LoginForm.java
 
 
 {% highlight python linenos %}
@@ -349,6 +349,7 @@ import java.sql.ResultSet;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -360,14 +361,64 @@ import javax.servlet.http.HttpSession;
 public class LoginServlet extends HttpServlet {
     
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) {
-        
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) 
+    throws IOException, ServletException {
+        RequestDispatcher rd = request.getRequestDispatcher("/auth/LoginForm.jsp");
+        rd.forward(request, response);
     }
     
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) 
+    throws IOException, ServletException {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
         
+        try {
+            ServletContext sc = this.getServletContext();
+            conn = (Connection) sc.getAttribute("conn");
+            stmt = conn.prepareStatement("select employee_id, first_name, last_name, email"
+                    + "where email=?");
+            stmt.setString(1, request.getParameter("email"));
+            rs = stmt.executeQuery();
+            
+            if (rs.next()) {
+                Member member = new Member().setEmail("email");
+                HttpSession session = request.getSession();
+                session.setAttribute("member", member);
+                
+                response.sendRedirect("../member/list");
+            } else {
+                RequestDispatcher rd = request.getRequestDispatcher("/auth/LoginFail.jsp");
+                rd.forward(request, response);
+            }
+        } catch (Exception e) {
+            throw new ServletException(e);
+        } finally {
+            try {if (rs != null) rs.close();} catch (Exception e) {}
+            try {if (stmt != null) stmt.close();} catch (Exception e) {}
+        }
     }
 }
-
 {% endhighlight %}
+
+<br>
+
+
+#### javaweb/WebContent/auth/LoginForm.jsp
+
+{% highlight python linenos %}
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+--- 임시
+{% endhighlight %}
+
+<br>
+
+#### javaweb/WebContent/auth/LoginFail.jsp
+
+{% highlight python linenos %}
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+--- 임시
+{% endhighlight %}
+
+<br>
