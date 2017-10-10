@@ -16,7 +16,7 @@
     <h4 id="{{tag.tags[0] | slugify}}{% if test == testup %}_cap{% endif %}">{{tag.tags[0]}}</h4>
     <ul class="tag-post">
       {% for pp in site.tags %}
-        {% if tag.tags[0] contains pp[0]  %}
+        {% if tag.tags[0] == pp[0]  %}
           {% for post in pp[1]%}
             <a class="post-title" href="{{site.baseurl}}{{post.url}}" target="">
             <li style="color:blue;">{{post.title}}
