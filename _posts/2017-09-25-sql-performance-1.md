@@ -3,7 +3,7 @@ layout: post
 title:  "[SQL Performance] - 1. PK 컬럼 순서에 의한 성능"
 date:   2017-09-15 01:30:13 +0800
 categories: data
-tags: sql-performance
+tags: [data, sql-performance]
 img: 
 ---
 
