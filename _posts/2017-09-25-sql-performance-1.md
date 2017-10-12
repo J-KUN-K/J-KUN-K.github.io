@@ -1,9 +1,9 @@
 ---
 layout: post
-title:  "[SQL Performance] - 1. PK 컬럼 순서에 의한 성능"
+title:  "[SQL Performance] - 1. PK 컬럼 순서에 의한 성능(진행중)"
 date:   2017-09-15 01:30:13 +0800
 categories: data
-tags: [data, sql-performance]
+tags: [sql-performance,data]
 img: 
 ---
 

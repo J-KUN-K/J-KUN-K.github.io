@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "[SQL Performance] - 2. 식별자 관계와 비 식별자 관계"
+title:  "[SQL Performance] - 2. 식별자 관계와 비 식별자 관계(비진행중)"
 date:   2017-09-15 01:30:13 +0800
 categories: data
 tags: sql-performance
