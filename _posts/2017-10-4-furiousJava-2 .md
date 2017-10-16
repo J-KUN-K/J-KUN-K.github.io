@@ -12,9 +12,9 @@ img: django-4-1.png
 
 ---
 
-#### 데이터베이스 다루기
+### 데이터베이스 다루기
 
-##### project02.servlets.MemberListServlet.java
+#### project02/servlets/MemberListServlet.java
 
 * 직원 정보 리스트
 
@@ -90,9 +90,6 @@ public class MemberListService extends GenericServlet {
         }   
     }
 }
-
-
-
 {% endhighlight %}
 
 
