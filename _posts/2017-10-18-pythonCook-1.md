@@ -16,7 +16,7 @@ tags: [python, study]
 
 <br>
 
-#### N개의 요소를 가진 튜플이나 시퀀스가 있다. 이를 변수 N개로 나누어야 한다.
+> N개의 요소를 가진 튜플이나 시퀀스가 있다. 이를 변수 N개로 나누어야 한다.
 
 {% highlight python linenos %}
 
@@ -62,7 +62,7 @@ _, shares, price, _ = data
 
 <br>
 
-#### 순환체를 언패킹하려는데 요소가 N개 이상 포함되어 값이 너무 많습니다. 라는 예외가 발생한다.
+> 순환체를 언패킹하려는데 요소가 N개 이상 포함되어 값이 너무 많습니다. 라는 예외가 발생한다.
 
 별 표현식을 이용한다. 특정값이 일정수 이내면 상관없지만 일정이상 이라면 별 표현식을 이용하는게 효율적이다.
 
@@ -122,7 +122,7 @@ foo 3 4
 
 <br>
 
-#### 순환이나 프로세싱 중 마지막으로 발견한 N 개의 아이템을 유지하고 싶다.
+> 순환이나 프로세싱 중 마지막으로 발견한 N 개의 아이템을 유지하고 싶다.
 
 {% highlight python linenos %}
 
@@ -132,18 +132,19 @@ def search(lines, patterns, history=2):
     previous_lines = deque(maxlen=history)
     print('----')
     for line in lines:
-        print(line)
         if patterns in line:
             yield line, previous_lines
         previous_lines.append(line)
 
 
-
-for line, prevlines in search(text, 'python', 5):
-    for pline in prevlines:
-        print(pline, end='')
-    print(line, end='')
-            
+with open('income_data.txt') as f:
+    for line, prevlines in search(f, 'Own-child', 5):
+        for pline in prevlines:
+            print(pline)
+            print('*'*20)
+        print('-'*20)
+        print(line)
+        print('-'*20)    
 {% endhighlight %}
 
 <br>
@@ -153,7 +154,7 @@ for line, prevlines in search(text, 'python', 5):
 
 <br>
 
-#### 컬렉션 내부에서 가장 크거나 작은 N개의 아이템을 찾는다
+> 컬렉션 내부에서 가장 크거나 작은 N개의 아이템을 찾는다
 
 * 임시
 
@@ -168,7 +169,7 @@ for line, prevlines in search(text, 'python', 5):
 
 <br>
 
-#### 임시
+> 임시
 
 * 임시
 
@@ -183,7 +184,7 @@ for line, prevlines in search(text, 'python', 5):
 
 <br>
 
-#### 임시
+> 임시
 
 * 임시
 
@@ -198,7 +199,7 @@ for line, prevlines in search(text, 'python', 5):
 
 <br>
 
-#### 임시
+> 임시
 
 * 임시
 
@@ -213,7 +214,7 @@ for line, prevlines in search(text, 'python', 5):
 
 <br>
 
-#### 임시
+> 임시
 
 
 {% highlight python linenos %}
@@ -227,7 +228,7 @@ for line, prevlines in search(text, 'python', 5):
 
 <br>
 
-#### 두 딕셔너리에서 동일한 키나 값 등의 유사점을 찾고 싶다.
+> 두 딕셔너리에서 동일한 키나 값 등의 유사점을 찾고 싶다.
 
 {% highlight python linenos %}
 
@@ -240,7 +241,7 @@ for line, prevlines in search(text, 'python', 5):
 
 <br>
 
-#### 임시
+> 임시
 
 
 {% highlight python linenos %}
@@ -254,7 +255,7 @@ for line, prevlines in search(text, 'python', 5):
 
 <br>
 
-#### 임시
+> 임시
 
 
 {% highlight python linenos %}
@@ -269,7 +270,7 @@ for line, prevlines in search(text, 'python', 5):
 
 <br>
 
-#### 임시
+> 임시
 
 
 {% highlight python linenos %}
@@ -284,7 +285,7 @@ for line, prevlines in search(text, 'python', 5):
 
 <br>
 
-#### 임시
+> 임시
 
 
 {% highlight python linenos %}
@@ -298,7 +299,7 @@ for line, prevlines in search(text, 'python', 5):
 
 <br>
 
-#### 임시
+> 임시
 
 
 {% highlight python linenos %}
@@ -313,7 +314,7 @@ for line, prevlines in search(text, 'python', 5):
 
 <br>
 
-#### 임시
+> 임시
 
 
 {% highlight python linenos %}
@@ -327,7 +328,7 @@ for line, prevlines in search(text, 'python', 5):
 
 <br>
 
-#### 임시
+> 임시
 
 
 {% highlight python linenos %}
@@ -340,7 +341,7 @@ for line, prevlines in search(text, 'python', 5):
 
 <br>
 
-#### 임시
+> 임시
 
 
 {% highlight python linenos %}
@@ -356,7 +357,7 @@ for line, prevlines in search(text, 'python', 5):
 
 <br>
 
-#### 임시
+> 임시
 
 {% highlight python linenos %}
 
@@ -368,7 +369,7 @@ for line, prevlines in search(text, 'python', 5):
 
 <br>
 
-#### 임시
+> 임시
 
 {% highlight python linenos %}
 
@@ -380,7 +381,7 @@ for line, prevlines in search(text, 'python', 5):
 
 <br>
 
-#### 임시
+> 임시
 
 {% highlight python linenos %}
 
