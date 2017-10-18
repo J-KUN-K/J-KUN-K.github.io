@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "4. TapeEquilibrium(푸는중)"
+title:  "6. TapeEquilibrium(푸는중)"
 date:   2017-09-27 17:10:13 +0800
 categories: study
 tags: algorithm 
