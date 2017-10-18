@@ -290,22 +290,6 @@ OrderedDict는 나중에 직렬화 하거나 다른 포맷으로 인코딩할 �
 
 <br>
 
-> 두 딕셔너리에 유사점을 찾고 싶다.
-
-{% highlight python linenos %}
-d = {}
-for key, value in pairs:
-    if key not in d:
-        d[key] = []
-    d[key].append(value)
-    
-d = defaultdict(list)
-for key, value in pairs:
-    d[key].append(value)
-{% endhighlight %}
-
-<br>
-
 
 ### 두 딕셔너리의 유사점 찾기
 

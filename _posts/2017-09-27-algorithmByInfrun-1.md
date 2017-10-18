@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "[Algorithm Training] 1. 리스트 값의 유일 문자열, 문자열 뒤집기"
+title:  "4. 리스트 값의 유일 문자열, 문자열 뒤집기"
 date:   2017-09-27 22:10:13 +0800
 categories: study
 tags: algorithm 

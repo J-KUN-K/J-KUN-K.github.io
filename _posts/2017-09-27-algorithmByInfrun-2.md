@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "[Algorithm Training] 2. 순열 판별, 문자열 압축"
+title:  "5. 순열 판별, 문자열 압축"
 date:   2017-09-27 23:10:13 +0800
 categories: study
 tags: algorithm 
