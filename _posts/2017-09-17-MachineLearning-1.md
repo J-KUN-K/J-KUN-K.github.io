@@ -3,7 +3,7 @@ layout: post
 title:  "간단한 3층 신경망과 소프트맥스 함수"
 date:   2017-09-13 17:00:13 +0800
 categories: machinelearning
-tags: [Scratch, machinelearning]
+tags: machinelearning
 comments: 1
 ---
 **간단한3층(출력층 포함) 신경망을 구현해 이해를 돕는다. 또한 소프트맥스함수의 특징과 구현을 한다.**
