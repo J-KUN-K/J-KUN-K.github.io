@@ -431,8 +431,7 @@ d
 
 <br>
 
-> 임시
-
+> 시퀀스에 가장 많이 나타난 아이템을 찾기
 
 {% highlight python linenos %}
 words = ['look', 'into', 'my', 'eyes', 'look', 'into', 'my', 'eyes', 'the', 'eyes', 'the', 'look', 'into', 'look', 'look','around', 'eyes' ]
@@ -441,6 +440,9 @@ from collections import Counter
 word_counters = Counter(words)
 top_three = word_counters.most_common(3)
 print(top_three)
+
+//결과 값
+[('look', 5), ('eyes', 4), ('into', 3)]
 {% endhighlight %}
 
 <br>
@@ -448,9 +450,25 @@ print(top_three)
 * 더 알아보기
 
 {% highlight python linenos %}
-//카운트를 수동으로 증가 시키고 싶은 경우
+#카운트를 수동으로 증가 시키고 싶은 경우
+for word in morewords:
+    word_counters[word] += 1
+top_three = word_counters.most_common(3)
+print(top_three)
 
+[('my', 6), ('look', 5), ('the', 5)]
 
+#카운트를 수동으로 증가 by update
+word_counts.update(morewords)
+
+#Counter 함수 이용
+a = Counter(words)
+b = Counter(words)
+
+# 카운트 합치기
+a+b
+# 카운트 빼기
+a-b
 {% endhighlight %}
 
 
@@ -460,11 +478,42 @@ print(top_three)
 
 <br>
 
-> 임시
+> 딕셔너리 리스트가 있고, 하나 혹은 그 이상의 딕셔너리 값으로 이를 정렬하고 싶다.
+
+{% highlight python linenos %}
+rows = [
+    {'fname':'Brian', 'lname':'Jones', 'uid':1003 },
+    {'fname':'David', 'lname':'Beazley', 'uid':1002 },
+    {'fname':'Jhon', 'lname':'Cleese', 'uid':1001 },
+    {'fname':'Big', 'lname':'Jones', 'uid':1004 },
+    {'fname':'Small', 'lname':'Jones', 'uid':1002 }
+]
+
+from operator import itemgetter
+
+rows_by_fname = sorted(rows, key=itemgetter('fname'))
+rows_by_uid = sorted(rows, key=itemgetter('uid'))
+rows_by_lfname = sorted(rows, key=itemgetter('lname', 'uid'))
+
+
+print(rows_by_fname)
+print(rows_by_uid)
+print(rows_by_lfname)
+
+# 결과값
+[{'fname': 'Big', 'lname': 'Jones', 'uid': 1004}, {'fname': 'Brian', 'lname': 'Jones', 'uid': 1003}, {'fname': 'David', 'lname': 'Beazley', 'uid': 1002}, {'fname': 'Jhon', 'lname': 'Cleese', 'uid': 1001}, {'fname': 'Small', 'lname': 'Jones', 'uid': 1002}]
+[{'fname': 'Jhon', 'lname': 'Cleese', 'uid': 1001}, {'fname': 'David', 'lname': 'Beazley', 'uid': 1002}, {'fname': 'Small', 'lname': 'Jones', 'uid': 1002}, {'fname': 'Brian', 'lname': 'Jones', 'uid': 1003}, {'fname': 'Big', 'lname': 'Jones', 'uid': 1004}]
+[{'fname': 'David', 'lname': 'Beazley', 'uid': 1002}, {'fname': 'Jhon', 'lname': 'Cleese', 'uid': 1001}, {'fname': 'Small', 'lname': 'Jones', 'uid': 1002}, {'fname': 'Brian', 'lname': 'Jones', 'uid': 1003}, {'fname': 'Big', 'lname': 'Jones', 'uid': 1004}]
+{% endhighlight %}
+
+<br>
+
+* 더 알아보기
 
 {% highlight python linenos %}
 
 {% endhighlight %}
+
 
 <br>
 
