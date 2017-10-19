@@ -522,26 +522,47 @@ print(rows_by_lfname)
 
 <br>
 
-> 임시
-
-
-{% highlight python linenos %}
-
-{% endhighlight %}
-
-
-<br>
 
 
 ### 필드에 따라 레코드 묶기
 
 <br>
 
-> 임시
+> 일련의 딕셔너리나 인스턴스가 있고 특정 필드 값에 기반한 그룹의 데이터를 순환하고 싶다.
 
 
 {% highlight python linenos %}
+from operator import itemgetter
+from itertools import groupby
 
+rows =[
+    {'address':'5412 N CLARK', 'date':'07/01/2012'},
+    {'address':'5148 N CLARK', 'date':'07/04/2012'},
+    {'address':'5800 E 58TH', 'date':'07/02/2012'},
+    {'address':'2122 N CLARK', 'date':'07/01/2012'},
+    {'address':'5645 N RAVENWOOD', 'date':'07/02/2012'},
+    {'address':'1060 W ADDISON', 'date':'07/02/2012'},
+    {'address':'1039 W GRACE', 'date':'07/04/2012'},
+]
+
+rows.sort(key=itemgetter('date'))
+
+for date, items in groupby(rows, key=itemgetter('date')):
+    print(date)
+    for i in items:
+        print('         ', i)
+
+//결과 값
+07/01/2012
+          {'address': '5412 N CLARK', 'date': '07/01/2012'}
+          {'address': '2122 N CLARK', 'date': '07/01/2012'}
+07/02/2012
+          {'address': '5800 E 58TH', 'date': '07/02/2012'}
+          {'address': '5645 N RAVENWOOD', 'date': '07/02/2012'}
+          {'address': '1060 W ADDISON', 'date': '07/02/2012'}
+07/04/2012
+          {'address': '5148 N CLARK', 'date': '07/04/2012'}
+          {'address': '1039 W GRACE', 'date': '07/04/2012'}
 {% endhighlight %}
 
 <br>

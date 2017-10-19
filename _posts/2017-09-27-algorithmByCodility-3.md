@@ -20,6 +20,7 @@ that, given a zero-indexed array A consisting of N integers and an integer K, re
 ..........
 
 -N and K are integers within the range [0..100];
+
 -each element of array A is an integer within the range [−1,000..1,000].
 
 근데 이 조건에 empty가 어디 포함된거지... 알고리즘 풀때는 문제 이해부터 항상 문제다.
