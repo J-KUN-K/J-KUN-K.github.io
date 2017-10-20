@@ -572,11 +572,81 @@ for date, items in groupby(rows, key=itemgetter('date')):
 
 <br>
 
-> 임시
-
+> 시퀀스 내부에 데이터가 있고 특정 조건에 따라 값을 추출하거나 줄이고 싶다.
 
 {% highlight python linenos %}
 
+# 리스트 컴프리핸션 이용하기
+mylist = [1, 4, -5, 10, -7, 2, 3, -1]
+[n+1 for n in mylist if n > 0]
+
+#결과 값
+[2, 5, 11, 3, 4]
+
+# 생성자 표현식을 통해 걸러내기
+for x in pos:
+    print(x)
+
+#결과 값
+1
+4
+10
+2
+3
+
+#필터 조건 이용하기
+values = ['1', '2', '1', '2', 'N/A', '-', '1', '*']
+
+def is_int(val):
+    try:
+        x = int(val)
+        return True
+    except ValueError:
+        return False
+
+ivals = list(filter(is_int, values))
+print(ivals)
+
+#결과 값
+['1', '2', '1', '2', '1']
+{% endhighlight %}
+
+<br>
+
+* 더 알아보기
+
+리스트 컴프리핸션은 생성자 표현식을 간단히 걸러낼 뿐만 아니라 동시에 데이터 변형도 가능하다.
+
+{% highlight python linenos %}
+mylist = [1, 4, -5, -10, -7, 2, 3, -1]
+import math
+math_neg = [math.sqrt(n) for n in mylist if n > 0 ]
+print(math_neg)
+clip_neg = [n if n > 0 else 0 for n in mylist]
+print(clip_neg)
+{% endhighlight %}
+
+또한 필터링 도구로 순환 가능한 것과 boolean 셀럭터 시퀀스를 입력으로 compress가 있다.
+
+{% highlight python linenos %}
+address =[
+    '5412 N CLARK',
+    '5148 N CLARK',
+    '5800 E 58TH', 
+    '2122 N CLARK',
+    '5645 N RAVENWOOD',
+    '1060 W ADDISON'
+    '1039 W GRACE'
+]
+
+counts = [0, 3, 10, 12, 7, 4, 8]
+
+from itertools import compress
+more5 = [n > 5 for n in counts]
+list(compress(address, more5))
+
+//결과 값
+['5800 E 58TH', '2122 N CLARK', '5645 N RAVENWOOD']
 {% endhighlight %}
 
 <br>
@@ -586,7 +656,6 @@ for date, items in groupby(rows, key=itemgetter('date')):
 <br>
 
 > 임시
-
 
 {% highlight python linenos %}
 
