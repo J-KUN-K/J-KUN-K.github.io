@@ -1,6 +1,6 @@
 ---
 layout: page
-title: "Project"
+title: "Project1"
 css: ["project.css"]
 ---
 {% include project.html %}
